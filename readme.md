@@ -22,7 +22,7 @@ Using MCLP is pretty basic. Just clone the git repository, cd to the directory y
 
 **Example for the needy:**
 
-	git clone https://stevenleeg@github.com/stevenleeg/Minecraft-Log-Parser.git
+	git clone https://github.com/stevenleeg/Minecraft-Log-Parser.git
 	cd ./mc-server
 	python ../Minecraft-Log-Parser/parser.py
 
