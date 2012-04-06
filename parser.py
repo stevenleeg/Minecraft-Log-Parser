@@ -39,26 +39,29 @@ sort = sorted(totals.iteritems(), key=operator.itemgetter(1))
 times = []
 for player in sort:
     # Convert to hours/minutes/seconds
-    time = "%s: " % player[0]
+    time = "%20s: " % player[0]
     total = player[1]
     days = total / 86400
     if days > 0:
-        time += "%s days" % int(days)
+        time += "%2s days" % int(days)
         total -= int(days) * 86400
     hours = total / 3600
     if hours > 0:
-        time += " %s hours" % int(hours)
+        time += " %2s hours" % int(hours)
         total -= int(hours) * 3600
     mins = total / 60
     if mins > 0:
-        time += " %s minutes" % int(mins)
+        time += " %2s minutes" % int(mins)
         total -= int(mins) * 60
     if total > 0:
-        time += " %s seconds" % total
+        time += " %2s seconds" % total
     
     times.append(time)
 
 times.reverse()
+
+counter = 0
 for time in times:
-    print time
+    counter = counter + 1
+    print "%2d) %s" % (counter, time)
 f.close()
