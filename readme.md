@@ -2,7 +2,7 @@ Minecraft Log Parser
 =====================
 MCLP is a simple Python script that can generate statistics about a Minecraft server based on it's `server.log` file.
 
-![MCLP in action](http://i.imgur.com/FJeRq.png)
+![MCLP in action](http://i.imgur.com/dweVw.png)
 
 ## Current Features
  * Calculates total time played for each player.
