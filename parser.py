@@ -45,14 +45,20 @@ for player in sort:
     if days > 0:
         time += "%2s days" % int(days)
         total -= int(days) * 86400
+    else:
+        time += "       "
     hours = total / 3600
     if hours > 0:
         time += " %2s hours" % int(hours)
         total -= int(hours) * 3600
+    else:
+        time += "         "
     mins = total / 60
     if mins > 0:
         time += " %2s minutes" % int(mins)
         total -= int(mins) * 60
+    else:
+        time += "          "
     if total > 0:
         time += " %2s seconds" % total
     
