@@ -58,7 +58,7 @@ for player in sort:
         time += " %2s minutes" % int(mins)
         total -= int(mins) * 60
     else:
-        time += "          "
+        time += "           "
     if total > 0:
         time += " %2s seconds" % total
     
