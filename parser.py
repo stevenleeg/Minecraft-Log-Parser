@@ -1,12 +1,16 @@
 #!/usr/bin/env python
-import re, datetime, operator
+import re, datetime, operator, sys
 
 actions = {
 	"login": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) ?\[\/[0-9.]{4,15}\:[0-9]*\]"),
 	"logout": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) lost connection")
 }
 
-f = open("server.log")
+path = "server.log"
+if sys.argv[1]:
+    path = sys.argv[1]
+
+f = open(path)
 
 online = {}
 totals = {}
