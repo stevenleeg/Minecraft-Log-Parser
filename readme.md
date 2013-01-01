@@ -23,7 +23,7 @@ Using MCLP is pretty basic. Just clone the git repository, cd to the directory y
 **Example for the needy:**
 
 	git clone https://github.com/stevenleeg/Minecraft-Log-Parser.git
-	cd ./mc-server
-	python ../Minecraft-Log-Parser/parser.py
+	cd ./Minecraft-Log-Parser.git
+    python parser.py /path/to/server.log
 
 Then you should see some neat statistics show up!
