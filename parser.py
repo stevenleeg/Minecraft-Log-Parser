@@ -3,7 +3,8 @@ import re, datetime, operator, sys
 
 actions = {
     "login": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) ?\[\/[0-9.]{4,15}\:[0-9]*\]"),
-    "logout": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) lost connection")
+    "logout": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) lost connection"),
+    "server_stop": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] Stopping server")
 }
 
 path = "server.log"
@@ -35,9 +36,18 @@ for line in f.readlines():
             online[player] = time
         elif action is "logout":
             if player not in totals:
-               totals[player] = 0
+                totals[player] = 0
             delta = time - online[player]
             totals[player] += delta.seconds
+            del online[player]
+        elif action is "server_stop":
+            # Log off all players
+            for player in online:
+                if player not in totals:
+                    totals[player] = 0
+                delta = time - online[player]
+                totals[player] += delta.seconds
+            online = {}
 
 sort = sorted(totals.iteritems(), key=operator.itemgetter(1))
 times = []
