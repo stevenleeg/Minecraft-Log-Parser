@@ -2,8 +2,9 @@
 import re, datetime, operator, sys
 
 actions = {
-	"login": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) ?\[\/[0-9.]{4,15}\:[0-9]*\]"),
-	"logout": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) lost connection")
+    "login": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) ?\[\/[0-9.]{4,15}\:[0-9]*\]"),
+    "logout": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] ([A-z0-9]*) lost connection"),
+    "server_stop": re.compile("([0-9]{4})\-([0-9]{2})\-([0-9]{2}) ([0-2][0-9])\:([0-9]{2})\:([0-9]{2}) \[INFO\] Stopping server")
 }
 
 path = "server.log"
@@ -15,29 +16,38 @@ f = open(path)
 online = {}
 totals = {}
 for line in f.readlines():
-	regex = None
-	action = None
-	player = None
-	time = None
-	for action in actions:
-		if actions[action].match(line):
-			regex = actions[action]
-			break
-	
-	if regex is not None:
-		# Get the user's name and parse the datetime
-		data = regex.split(line)
-		player = data[7]
-		time = datetime.datetime(int(data[1]), int(data[2]), int(data[3]), int(data[4]), int(data[5]), int(data[6]))
-	
-		# Now do things!
-		if action is "login":
-			online[player] = time
-		elif action is "logout":
-			if player not in totals:
-			   totals[player] = 0
-			delta = time - online[player]
-			totals[player] += delta.seconds
+    regex = None
+    action = None
+    player = None
+    time = None
+    for action in actions:
+        if actions[action].match(line):
+            regex = actions[action]
+            break
+    
+    if regex is not None:
+        # Get the user's name and parse the datetime
+        data = regex.split(line)
+        player = data[7]
+        time = datetime.datetime(int(data[1]), int(data[2]), int(data[3]), int(data[4]), int(data[5]), int(data[6]))
+    
+        # Now do things!
+        if action is "login":
+            online[player] = time
+        elif action is "logout":
+            if player not in totals:
+                totals[player] = 0
+            delta = time - online[player]
+            totals[player] += delta.seconds
+            del online[player]
+        elif action is "server_stop":
+            # Log off all players
+            for player in online:
+                if player not in totals:
+                    totals[player] = 0
+                delta = time - online[player]
+                totals[player] += delta.seconds
+            online = {}
 
 sort = sorted(totals.iteritems(), key=operator.itemgetter(1))
 times = []
