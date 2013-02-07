@@ -37,7 +37,11 @@ for line in f.readlines():
         elif action is "logout":
             if player not in totals:
                 totals[player] = 0
-            delta = time - online[player]
+            if player in online:
+                delta = time - online[player]
+            else:
+                break
+
             totals[player] += delta.seconds
             del online[player]
         elif action is "server_stop":
