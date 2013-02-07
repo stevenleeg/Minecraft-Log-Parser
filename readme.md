@@ -17,13 +17,10 @@ As you can see, the feature list is pretty slim right now. The good news is I ha
 
 I'm open to suggestions. If you have an idea for a statistic that could be generated feel free to suggest it in the issue tracker. If you're feeling extra generous, you could always implement a feature on your own and submit a pull request!
 
-## Usage
-Using MCLP is pretty basic. Just clone the git repository, cd to the directory your server.log resides in, and run the script.
+## Installation/Usage
+I tried to make using MCLP as easy as possible. As long as you have `pip` installed, usage is as simple as:
 
-**Example for the needy:**
-
-	git clone https://github.com/stevenleeg/Minecraft-Log-Parser.git
-	cd ./Minecraft-Log-Parser.git
-    python parser.py /path/to/server.log
+	pip install mclp
+    mclp /path/to/server.log
 
 Then you should see some neat statistics show up!
