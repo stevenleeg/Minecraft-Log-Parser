@@ -24,3 +24,6 @@ I tried to make using MCLP as easy as possible. As long as you have `pip` instal
     mclp /path/to/server.log
 
 Then you should see some neat statistics show up!
+
+## License
+Minecraft Log Parser is released under the [MIT License](http://opensource.org/licenses/MIT). Have fun and make awesome things with it!
