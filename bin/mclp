@@ -46,7 +46,7 @@ for line in f.readlines():
             if player in online:
                 delta = time - online[player]
             else:
-                break
+                continue
 
             totals[player] += delta.seconds
             del online[player]
